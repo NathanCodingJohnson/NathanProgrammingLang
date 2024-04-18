@@ -1,4 +1,4 @@
-from string_with_arrows import *
+import string_with_arrows
 
 # CONSTANTS
 DIGITS = '0123456789'
@@ -70,7 +70,7 @@ class Token:
 
         if pos_start:
             self.post_start = pos_start.copy()
-            self.pos_end = post_start.copy()
+            self.pos_end = pos_start.copy()
             self.pos_end.advance()
 
         if pos_end:
