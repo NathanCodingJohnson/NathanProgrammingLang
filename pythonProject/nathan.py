@@ -69,7 +69,7 @@ class Token:
         self.value = value
 
         if pos_start:
-            self.post_start = pos_start.copy()
+            self.pos_start = pos_start.copy()
             self.pos_end = pos_start.copy()
             self.pos_end.advance()
 
