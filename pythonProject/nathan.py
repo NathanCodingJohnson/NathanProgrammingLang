@@ -1,4 +1,4 @@
-import string_with_arrows
+from string_with_arrows import string_with_arrows
 
 # CONSTANTS
 DIGITS = '0123456789'
