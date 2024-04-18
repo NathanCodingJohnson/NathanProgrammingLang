@@ -1,4 +1,4 @@
-from string_with_arrows import string_with_arrows
+from string_with_arrows import *
 
 # CONSTANTS
 DIGITS = '0123456789'
@@ -199,7 +199,7 @@ class ParseResult:
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
-        self.tok_idx = 1
+        self.tok_idx = -1
         self.advance()
 
     def advance(self):
@@ -247,8 +247,6 @@ class Parser:
             left = BinOpNode(left, op_tok, right)
 
         return res.success(left)
-
-        return left
 
 # run
 def run(fn, text):
