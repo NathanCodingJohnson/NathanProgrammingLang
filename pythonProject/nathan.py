@@ -528,6 +528,7 @@ class Interpreter:
         if value is None:
             return res.failure(RTEError(node.pos_start, node.pos_end, f"'{var_name}' is not defined", context))
         
+        value = value.copy().set_pos(node.pos_start, node.pos_end)
         return res.success(value)
 
     def visit_VarAssignNode(self, node, context):
