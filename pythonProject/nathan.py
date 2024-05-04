@@ -139,7 +139,7 @@ class Lexer:
         # THIS IS WHERE ASSIGN SYMBOLS TO TOKENS
 
         while self.current_char != None:
-            if self.current_char in '\t':
+            if self.current_char in ' \t':
                 self.advance()
             elif self.current_char in DIGITS:
                 tokens.append(self.make_number())
