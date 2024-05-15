@@ -104,9 +104,9 @@ TT_GTE = 'TT_GTE'
 
 
 KEYWORDS = [
-    'VAR'
-    'AND'
-    'OR'
+    'VAR',
+    'AND',
+    'OR',
     'NOT'
 ]
 
