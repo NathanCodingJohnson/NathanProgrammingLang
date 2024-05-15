@@ -104,7 +104,7 @@ TT_GTE = 'TT_GTE'
 
 
 KEYWORDS = [
-    'VAR',
+    'NATE',
     'AND',
     'OR',
     'NOT'
@@ -429,7 +429,7 @@ class Parser:
 
     def expr(self):
         res = ParseResult()
-        if self.current_tok.matches(TT_KEYWORD, 'VAR'):
+        if self.current_tok.matches(TT_KEYWORD, 'NATE'):
             res.register_advancement()
             self.advance()
 
@@ -452,7 +452,7 @@ class Parser:
         node = res.register(self.bin_op(self.comparison_expr, ((TT_KEYWORD, 'AND'), (TT_KEYWORD, 'OR'))))
 
         if res.error:
-            return res.failure(InvalidSyntaxError(self.current_tok.pos_start, self.current_tok.pos_end, "Expected 'VAR', int, float, identifier, '+', '-', or '('"))
+            return res.failure(InvalidSyntaxError(self.current_tok.pos_start, self.current_tok.pos_end, "Expected 'NATE', int, float, identifier, '+', '-', or '('"))
 
         return res.success(node)
 
