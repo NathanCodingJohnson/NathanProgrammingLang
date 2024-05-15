@@ -173,9 +173,6 @@ class Lexer:
             elif self.current_char == '^':
                 tokens.append(Token(TT_POW, pos_start=self.pos))
                 self.advance()
-            elif self.current_char == '=':
-                tokens.append(Token(TT_EQ, pos_start=self.pos))
-                self.advance()
             elif self.current_char == '(':
                 tokens.append(Token(TT_LPAREN, pos_start=self.pos))
                 self.advance()
@@ -234,10 +231,10 @@ class Lexer:
     
     def make_not_equals(self):
         pos_start = self.pos.copy()
-        self.advance
+        self.advance()
 
         if self.current_char == '=':
-            self.advance
+            self.advance()
             return Token(TT_NE, pos_start=pos_start, pos_end=self.pos), None
         
         self.advance()
@@ -249,7 +246,7 @@ class Lexer:
         self.advance()
 
         if self.current_char == '=':
-            self.advance
+            self.advance()
             tok_type = TT_EE
 
         return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
@@ -260,7 +257,7 @@ class Lexer:
         self.advance()
 
         if self.current_char == '=':
-            self.advance
+            self.advance()
             tok_type = TT_LTE
 
         return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
@@ -271,7 +268,7 @@ class Lexer:
         self.advance()
 
         if self.current_char == '=':
-            self.advance
+            self.advance()
             tok_type = TT_GTE
 
         return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
@@ -373,7 +370,7 @@ class Parser:
     def parse(self):
         res = self.expr()
         if not res.error and self.current_tok.type != TT_EOF:
-            return res.failure(InvalidSyntaxError(self.current_tok.pos_start, self.current_tok.pos_end, "Expected '+', '-', '*', or '/'"))
+            return res.failure(InvalidSyntaxError(self.current_tok.pos_start, self.current_tok.pos_end, "Expected '+', '-', '*', '/', '^', '==', '!=', '<', '>', '<=', '>=', 'AND' or 'OR'"))
         return res
 
     def atom(self):
@@ -452,7 +449,7 @@ class Parser:
             if res.error: return res
             return res.success(VarAssignNode(var_name, expr))
 
-        node = res.register(self.bin_op(self.comparison_expr, ((TT_KEYWORD, "AND"), (TT_KEYWORD, "OR"))))
+        node = res.register(self.bin_op(self.comparison_expr, ((TT_KEYWORD, 'AND'), (TT_KEYWORD, 'OR'))))
 
         if res.error:
             return res.failure(InvalidSyntaxError(self.current_tok.pos_start, self.current_tok.pos_end, "Expected 'VAR', int, float, identifier, '+', '-', or '('"))
@@ -461,7 +458,7 @@ class Parser:
 
     def comparison_expr(self):
         res = ParseResult()
-        
+
         if self.current_tok.matches(TT_KEYWORD, 'NOT'):
             op_tok = self.current_tok
             res.register_advancement()
@@ -470,10 +467,10 @@ class Parser:
             node = res.register(self.comparison_expr())
             if res.error: return res
             return res.success(UnaryOpNode(op_tok, node))
-        
-        node = res.register(self.bin_op(self.arithmetic_expr, (TT_EE,TT_EE,TT_LT,TT_GT,TT_LTE,TT_GTE)))
 
-        if res.error: 
+        node = res.register(self.bin_op(self.arithmetic_expr, (TT_EE, TT_NE, TT_LT, TT_GT, TT_LTE, TT_GTE)))
+
+        if res.error:
             return res.failure(InvalidSyntaxError("Expected int, float, identifier, '+', '-', '(', or 'NOT'"))
 
         return res.success(node)
