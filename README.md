@@ -1,6 +1,6 @@
 NathanProgrammingLang
 =====
-%Nathan Programming Language by Nathan Johnson and Nathan Duong%
+**Nathan Programming Language by Nathan Johnson and Nathan Duong**
 
 Latest update: 5/16/2024
 
