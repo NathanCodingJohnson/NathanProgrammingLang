@@ -3,6 +3,7 @@ NathanProgrammingLang
 Nathan Programming Language by Nathan Johnson and Nathan Duong
 
 Latest update: 5/16/2024
+
 Author emails: Nathan0Johnson2021@gmail.com & nathan.duong@sjsu.edu
 
 The Nathan Programming language is a simple programming language built-in Python, loosely based on basic.
